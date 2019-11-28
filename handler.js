@@ -31,7 +31,7 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  connection.query('INSERT INTO task SET ?', function (err, data) {
+  connection.query("INSERT INTO task SET ?", function (err, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
