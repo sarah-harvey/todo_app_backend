@@ -16,9 +16,10 @@ const connection = mysql.createConnection({
   database: "todo_today"
 });
 
-const taskId = {
-  id: uuidv4(),
-  taskDescription: this.state.taskDescription,
+const task = {
+  taskId: uuidv4(),
+  userId: 1,
+  text: this.state.taskDescription,
   completed: false
 }
 
@@ -38,7 +39,7 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  connection.query('INSERT INTO task SET ?', [taskId], { text: '', completed: '' }, function (err, results, data) {
+  connection.query('INSERT INTO task SET ?', task, function (err, results, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
