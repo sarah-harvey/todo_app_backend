@@ -31,14 +31,14 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  connection.query("INSERT INTO task SET ?", function (err, data) {
+  connection.query('INSERT INTO task SET ?', {text:"", completed: ""}, function (err, results, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
         error: err
       });
     } else {
-      console.log(query + [taskId]);
+      console.log(results.insertId);
       response.json({
         tasks: data
       });
@@ -65,7 +65,7 @@ app.put("/tasks/:taskId", function (request, response) {
   // const taskId = request.params.taskId;
   // const updatedTask = request.body;
   // response.status(200).send("Updated task with id " + taskId);
-  //});
+  });
 
 
   module.exports.tasks = serverlessHttp(app);
