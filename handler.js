@@ -3,6 +3,7 @@ const serverlessHttp = require("serverless-http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
+const uuidv4 = require('uuid/v4');
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,12 @@ const connection = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: "todo_today"
 });
+
+const taskId = {
+  id: uuidv4(),
+  taskDescription: this.state.taskDescription,
+  completed: false
+}
 
 app.get("/tasks", function (request, response) {
   connection.query("SELECT * FROM task", function (err, data) {
@@ -31,7 +38,7 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  connection.query('INSERT INTO task SET ?', {text: '', completed: ''}, function (err, results, data) {
+  connection.query('INSERT INTO task SET ?', {taskId: '', text: '', completed: ''}, function (err, results, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
