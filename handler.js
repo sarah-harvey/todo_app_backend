@@ -38,7 +38,7 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  connection.query('INSERT INTO task SET ?', {taskId: '', text: '', completed: ''}, function (err, results, data) {
+  connection.query('INSERT INTO task SET ?', [taskId], { text: '', completed: '' }, function (err, results, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
@@ -54,7 +54,7 @@ app.post("/tasks", function (request, response) {
 });
 
 //const task = request.body;
-  // { text: "do the dishes", completed: true, date: "2019" }
+// { text: "do the dishes", completed: true, date: "2019" }
 
 
 app.delete("/tasks/:taskId", function (request, response) {
@@ -72,7 +72,7 @@ app.put("/tasks/:taskId", function (request, response) {
   // const taskId = request.params.taskId;
   // const updatedTask = request.body;
   // response.status(200).send("Updated task with id " + taskId);
-  });
+});
 
 
-  module.exports.tasks = serverlessHttp(app);
+module.exports.tasks = serverlessHttp(app);
