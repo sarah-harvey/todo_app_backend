@@ -31,16 +31,16 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  connection.query('INSERT INTO task SET ?', [textValue, completedValue], function (err, results, fields) {
+  connection.query('INSERT INTO task SET ?', function (err, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
         error: err
       });
     } else {
-      console.log(query + taskId);
+      console.log(query + [taskId]);
       response.json({
-        tasks: data + taskId
+        tasks: data
       });
     }
   });
