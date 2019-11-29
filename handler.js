@@ -35,13 +35,14 @@ app.get("/tasks", function (request, response) {
 
 app.post("/tasks", function (request, response) {
   const task = request.body;
+  const taskId = request.params.taskId;
   const task = {
     taskId: uuidv4(),
-    userId: '',
-    text: "",
-    completed: false
+    userId: request.body,
+    text: request.body,
+    completed: request.body
   }
-  connection.query('INSERT INTO task SET ?', task, function (err, results, data) {
+  connection.query("INSERT INTO task SET ?", task, function (err, results) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
@@ -49,7 +50,7 @@ app.post("/tasks", function (request, response) {
       });
     } else {
       console.log(results.insertTaskId);
-      response.json({
+      response.status(201).json({
         tasks: data
       });
     }
