@@ -16,12 +16,7 @@ const connection = mysql.createConnection({
   database: "todo_today"
 });
 
-const task = {
-  taskId: uuidv4(),
-  userId: 1,
-  text: this.state.taskDescription,
-  completed: false
-}
+
 
 app.get("/tasks", function (request, response) {
   connection.query("SELECT * FROM task", function (err, data) {
@@ -39,6 +34,13 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
+  const task = request.body;
+  const task = {
+    taskId: uuidv4(),
+    userId: '',
+    text: "",
+    completed: false
+  }
   connection.query('INSERT INTO task SET ?', task, function (err, results, data) {
     if (err) {
       console.log("Error inserting task", err);
@@ -46,7 +48,7 @@ app.post("/tasks", function (request, response) {
         error: err
       });
     } else {
-      console.log(results.insertId);
+      console.log(results.insertTaskId);
       response.json({
         tasks: data
       });
@@ -54,8 +56,6 @@ app.post("/tasks", function (request, response) {
   });
 });
 
-//const task = request.body;
-// { text: "do the dishes", completed: true, date: "2019" }
 
 
 app.delete("/tasks/:taskId", function (request, response) {
