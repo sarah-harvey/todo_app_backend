@@ -71,22 +71,33 @@ app.delete("/tasks/:taskId", function (request, response) {
       });
     } else {
       console.log("Deleted task with id + taskId");
-      };
-    }
-);
+    };
+  }
+  );
 });
 
-  app.put("/tasks/:taskId", function (request, response) {
-    connection.query('UPDATE task SET completed = true  WHERE taskId = ?', [taskId], function (error, results, fields) {
-      if (error) throw error;
-      // ...
-    });
-
-
-    // const taskId = request.params.taskId;
-    // const updatedTask = request.body;
-    // response.status(200).send("Updated task with id " + taskId);
+app.put("/tasks/:taskId", function (request, response) {
+  const taskId = request.params.taskId;
+  const updatedTask = request.body;
+  connection.query("UPDATE task SET completed = true WHERE taskId = ?", [taskId], function (err, data) {
+    if (err) {
+      console.log("Error updating task with id " + taskId, err);
+      response.status(500).json({
+        error: err
+      });
+    } else {
+      console.log("Updated task with id " + taskId)
+      response.status(200).send({
+        tasks: data
+      })
+    }
   });
 
 
-  module.exports.tasks = serverlessHttp(app);
+  // const taskId = request.params.taskId;
+  // const updatedTask = request.body;
+  // response.status(200).send("Updated task with id " + taskId);
+});
+
+
+module.exports.tasks = serverlessHttp(app);
