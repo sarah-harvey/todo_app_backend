@@ -34,13 +34,12 @@ app.get("/tasks", function (request, response) {
 });
 
 app.post("/tasks", function (request, response) {
-  const task = request.body;
   const taskId = request.params.taskId;
   const task = {
     taskId: uuidv4(),
-    userId: request.body,
-    text: request.body,
-    completed: request.body
+    userId: request.body.userId,
+    text: request.body.text,
+    completed: request.body.completed
   }
   connection.query("INSERT INTO task SET ?", task, function (err, results) {
     if (err) {
