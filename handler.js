@@ -80,14 +80,14 @@ app.delete("/tasks/:taskId", function (request, response) {
 app.put("/tasks/:taskId", function (request, response) {
   const taskId = request.params.taskId;
   const updatedTask = request.body.text;
-  connection.query("UPDATE task SET completed = ?, WHERE taskId = ?", ['true', taskId], function (err, data) {
+  connection.query("UPDATE task SET completed = ?, WHERE taskId = ?", ['1', taskId], function (err, data) {
     if (err) {
       console.log("Error updating task with id " + taskId, err);
       response.status(500).json({
         error: err
       });
     } else {
-      console.log(results.insertId)
+      console.log(updatedTask.insertId)
       response.status(200).send({
         tasks: data
       })
