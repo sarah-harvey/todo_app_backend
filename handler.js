@@ -26,7 +26,7 @@ app.get("/tasks", function (request, response) {
         error: err
       });
     } else {
-      response.json({
+      response.status(200).send({
         tasks: data
       });
     }
@@ -41,14 +41,14 @@ app.post("/tasks", function (request, response) {
     text: request.body.text,
     completed: request.body.completed
   }
-  connection.query("INSERT INTO task SET ?", task, function (err, results) {
+  connection.query("INSERT INTO task SET ? ", task, function (err, results) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
         error: err
       });
     } else {
-      console.log(results.insertTaskId);
+      console.log("Created task with id " + taskId);
       response.status(201).send({
         tasks: data
       });
@@ -62,30 +62,32 @@ app.post("/tasks", function (request, response) {
 app.delete("/tasks/:taskId", function (request, response) {
   const taskId = request.params.taskId;
   //response.status(200).send("Deleted task with id " + taskId);
-  connection.query("DELETE FROM task WHERE taskId = ?", [taskId], function (err, data) {
+  connection.query("DELETE FROM task WHERE taskId = ? ", [taskId], function (err, data) {
     if (err) {
-      console.log("Error deleting task", err);
+      console.log("Error deleting task with id ", err);
       response.status(500).json({
         error: err
       });
     } else {
-      console.log("Deleted task with id + taskId");
-    };
-  }
-  );
+      console.log("Deleted task with id " + taskId)
+      response.status(200).send({
+        tasks: data
+      });
+    }
+  });
 });
 
 app.put("/tasks/:taskId", function (request, response) {
   const taskId = request.params.taskId;
-  const updatedTask = request.body;
-  connection.query("UPDATE task SET completed = true WHERE taskId = ?", [taskId], function (err, data) {
+  const updatedTask = request.body.text;
+  connection.query("UPDATE task SET completed = ?, WHERE taskId = ?", ['true', taskId], function (err, data) {
     if (err) {
       console.log("Error updating task with id " + taskId, err);
       response.status(500).json({
         error: err
       });
     } else {
-      console.log("Updated task with id " + taskId)
+      console.log(results.insertId)
       response.status(200).send({
         tasks: data
       })
