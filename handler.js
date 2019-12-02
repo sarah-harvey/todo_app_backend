@@ -41,7 +41,7 @@ app.post("/tasks", function (request, response) {
     text: request.body.text,
     completed: request.body.completed
   }
-  connection.query("INSERT INTO task SET ? ", task, function (err, results) {
+  connection.query("INSERT INTO task SET ? ", task, function (err, data) {
     if (err) {
       console.log("Error inserting task", err);
       response.status(500).json({
