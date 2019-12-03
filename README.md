@@ -1,6 +1,6 @@
 # todo_app_backend
 
-This is the back end API of a Todo Application, built throughout the [Tech Returners]<https://www.techreturners.com/your-journey-into-tech> Your Journey Into Tech course. It is consumed by a front end React application, available [here]<https://sarah-harvey.github.io/todo_app_frontend>  and connects to an RDS Database.
+This is the back end API of a Todo Application, built throughout the Tech Returners<https://www.techreturners.com/your-journey-into-tech> Your Journey Into Tech course. It is consumed by a front end React application, available here:<https://sarah-harvey.github.io/todo_app_frontend>  and connects to an RDS Database.
 
 The hosted version of the application is available here: https://sarah-harvey.github.io/todo_app_backend
 
@@ -36,12 +36,13 @@ __POST /tasks__
 https://p5pa4ryptk.execute-api.eu-west-2.amazonaws.com/dev/tasks
 
 Will create a new task when sent a JSON payload in the format:
-
-```{
+```
+{
   "text": "walk dog",
   "completed": false,
   "date": "2019-12-17"
-}```
+}
+```
 
 -----------------------------------------------------------------------------------------
 
@@ -58,9 +59,10 @@ __PUT /tasks/:taskId__
 https://p5pa4ryptk.execute-api.eu-west-2.amazonaws.com/dev/tasks/{taskId}
 
 Will update a task when sent a JSON payload in the format:
-
-```{
+```
+{
   "text": "walk dog",
   "completed": true,
   "date": "2019-12-17"
-}```
+}
+```
