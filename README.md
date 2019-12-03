@@ -1,6 +1,6 @@
 # todo_app_backend
 
-This is the back end API of a Todo Application, built throughout the Tech Returners<https://www.techreturners.com/your-journey-into-tech> Your Journey Into Tech course. It is consumed by a front end React application, available here:<https://sarah-harvey.github.io/todo_app_frontend>  and connects to an RDS Database.
+This is the back end API of a Todo Application, built throughout the Tech Returners (https://www.techreturners.com/your-journey-into-tech) Your Journey Into Tech course. It is consumed by a front end React application, available here: <https://sarah-harvey.github.io/todo_app_frontend>  and connects to an RDS Database.
 
 The hosted version of the application is available here: https://sarah-harvey.github.io/todo_app_backend
 
